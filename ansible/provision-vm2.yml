@@ -43,8 +43,7 @@
 
     - name: Copier l'application depuis GitHub (MNG43)
       git:
-        # Utilisation de HTTPS pour passer le firewall pfSense
-        repo: "https://github.com/MNG43/projet3tiers.git"
+        repo: "https://github.com/MNG43/projet3tiers-uadb.git"
         dest: "{{ app_dir }}"
         version: main
         force: yes
