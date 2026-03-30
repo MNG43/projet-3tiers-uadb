@@ -167,6 +167,40 @@ app.get('/', (req, res) => {
 });
 
 // ■■ ROUTES API (Backend) ■■ [cite: 11, 12, 210]
+// ■■ ROUTES API (Backend) ■■ [cite: 11, 12, 210]
+
+// Route de test simple
+app.get('/api/status', (req, res) => {
+  res.json({ message: "Le serveur Node fonctionne !", status: "OK" });
+});
+
+// Route pour tester la connexion à la base de données (VM3)
+app.get('/api/db-test', (req, res) => {
+  db.query('SELECT 1 + 1 AS solution', (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: "Erreur de connexion BD", details: error });
+    }
+    res.json({ message: "Connexion à la VM3 réussie !", data: results[0].solution });
+  });
+});
+//User
+// Route pour récupérer les utilisateurs depuis la VM3
+// Route pour récupérer les utilisateurs depuis la VM3
+app.get('/api/users', (req, res) => {
+    const query = 'SELECT * FROM utilisateurs'; // Assure-toi que la table 'users' existe sur la VM3
+    
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Erreur MySQL:', err);
+            return res.status(500).json({ 
+                error: "Erreur lors de la récupération des données",
+                details: err.message 
+            });
+        }
+        res.status(200).json(results);
+    });
+});
+
 
 // Ajouter [cite: 12]
 app.post('/api/users', (req, res) => {
